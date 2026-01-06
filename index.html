@@ -153,11 +153,11 @@
         generateBtn.addEventListener('click', generateBadge);
         downloadBtn.addEventListener('click', downloadBadge);
 
-        document.getElementById('studentId').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') document.getElementById('studentName').focus();
+        document.getElementById('studentId').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.isComposing) document.getElementById('studentName').focus();
         });
-        document.getElementById('studentName').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') generateBadge();
+        document.getElementById('studentName').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.isComposing) generateBadge();
         });
 
         function generateBadge() {
