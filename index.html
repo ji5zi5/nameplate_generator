@@ -103,9 +103,29 @@
 
         .hidden { display: none; }
         canvas { display: none; }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #333;
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
+    <div id="toast" class="toast"></div>
     <div class="container">
         <h1>🏷️ 명찰 생성기</h1>
         
@@ -165,7 +185,7 @@
             const studentName = document.getElementById('studentName').value.trim();
             
             if (!studentId || !studentName) {
-                alert('학번과 이름을 모두 입력해주세요.');
+                showToast('학번과 이름을 모두 입력해주세요.');
                 return;
             }
             
@@ -197,6 +217,13 @@
             link.download = `명찰_${studentId}_${studentName}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
         }
     </script>
 </body>
